@@ -9,6 +9,12 @@ export default class App extends React.Component {
     gradients: sampleSize(allGradients, 10),
   };
 
+  changeGradients = () => {
+    this.setState({
+      gradients: sampleSize(allGradients, 10)
+    });
+  }
+
   render() {
     const { gradients } = this.state;
     return (
@@ -23,12 +29,16 @@ export default class App extends React.Component {
         </View>
         <FlatList
           data={gradients}
+          onRefresh={this.changeGradients}
+          refreshing={false}
           keyExtractor={(item, index) => index}
           ItemSeparatorComponent={() => <View style={styles.separator} />}
           renderItem={({ item }) =>
             <LinearGradient
               colors={item.colors}
               style={[styles.gradientWrapper]}
+              start={[0, 0.5]}
+              end={[1, 0.5]}
             >
               <Text style={[styles.text, styles.gradientName]}>
                 {item.name}

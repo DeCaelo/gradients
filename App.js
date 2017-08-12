@@ -16,6 +16,9 @@ export default class App extends React.Component {
         <FlatList
           data={gradients}
           keyExtractor={(item, index) => index}
+          ItemSeparatorComponent={() => 
+            <View style={styles.separator} />
+          }
           renderItem={({ item }) =>
             <LinearGradient
               colors={item.colors}
@@ -24,6 +27,10 @@ export default class App extends React.Component {
               <Text style={styles.text}>
                 {item.name}
               </Text>
+              <View>
+                <Text style={[styles.text]}>{item.colors[0]}</Text>
+                <Text style={[styles.text]}>{item.colors[1]}</Text>
+              </View>
             </LinearGradient>}
         />
       </View>
@@ -34,13 +41,20 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#273142',
     justifyContent: 'center',
+    paddingHorizontal: 15,
   },
   text: {
     backgroundColor: 'transparent',
   },
   gradientWrapper: {
-    height: 30,
+    height: 60,
+    justifyContent: 'center',
+    borderRadius: 10,
+    paddingHorizontal: 15,
+  },
+  separator: {
+    height: 10,
   },
 });

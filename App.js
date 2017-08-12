@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, FlatList } from 'react-native';
 import allGradients from './gradients.json';
 import sampleSize from 'lodash/sampleSize';
 import { LinearGradient } from 'expo';
+import color from 'tinycolor2';
 
 export default class App extends React.Component {
   state = {
@@ -11,9 +12,9 @@ export default class App extends React.Component {
 
   changeGradients = () => {
     this.setState({
-      gradients: sampleSize(allGradients, 10)
+      gradients: sampleSize(allGradients, 10),
     });
-  }
+  };
 
   render() {
     const { gradients } = this.state;
@@ -40,14 +41,31 @@ export default class App extends React.Component {
               start={[0, 0.5]}
               end={[1, 0.5]}
             >
-              <Text style={[styles.text, styles.gradientName]}>
+              <Text
+                style={[
+                  styles.text,
+                  styles.gradientName,
+                  color(item.colors[0]).isDark() ? styles.white : {},
+                ]}
+              >
                 {item.name}
               </Text>
               <View style={[styles.colorsStringContainer]}>
-                <Text style={[styles.text]}>
+                <Text
+                  style={[
+                    styles.text,
+                    color(item.colors[0]).isDark() ? styles.white : {},
+                  ]}
+                >
                   {item.colors[0]}
                 </Text>
-                <Text style={[styles.text, { marginLeft: 10 }]}>
+                <Text
+                  style={[
+                    styles.text,
+                    { marginLeft: 10 },
+                    color(item.colors[0]).isDark() ? styles.white : {},
+                  ]}
+                >
                   {item.colors[1]}
                 </Text>
               </View>
@@ -69,7 +87,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   gradientWrapper: {
-    height: 60,
+    height: 70,
     justifyContent: 'space-between',
     alignItems: 'center',
     borderRadius: 10,
@@ -92,7 +110,7 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   header: {
-    paddingVertical: 20,
+    paddingVertical: 30,
     alignItems: 'center',
   },
 });

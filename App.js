@@ -13,23 +13,33 @@ export default class App extends React.Component {
     const { gradients } = this.state;
     return (
       <View style={styles.container}>
+        <View style={styles.header}>
+          <Text style={[styles.text, styles.h1, styles.white]}>
+            Web Gradients
+          </Text>
+          <Text style={[styles.text, styles.white]}>
+            Linear Gradients from webgradients.com
+          </Text>
+        </View>
         <FlatList
           data={gradients}
           keyExtractor={(item, index) => index}
-          ItemSeparatorComponent={() => 
-            <View style={styles.separator} />
-          }
+          ItemSeparatorComponent={() => <View style={styles.separator} />}
           renderItem={({ item }) =>
             <LinearGradient
               colors={item.colors}
               style={[styles.gradientWrapper]}
             >
-              <Text style={styles.text}>
+              <Text style={[styles.text, styles.gradientName]}>
                 {item.name}
               </Text>
-              <View>
-                <Text style={[styles.text]}>{item.colors[0]}</Text>
-                <Text style={[styles.text]}>{item.colors[1]}</Text>
+              <View style={[styles.colorsStringContainer]}>
+                <Text style={[styles.text]}>
+                  {item.colors[0]}
+                </Text>
+                <Text style={[styles.text, { marginLeft: 10 }]}>
+                  {item.colors[1]}
+                </Text>
               </View>
             </LinearGradient>}
         />
@@ -50,11 +60,29 @@ const styles = StyleSheet.create({
   },
   gradientWrapper: {
     height: 60,
-    justifyContent: 'center',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     borderRadius: 10,
     paddingHorizontal: 15,
+    flexDirection: 'row',
   },
   separator: {
     height: 10,
+  },
+  colorsStringContainer: {
+    flexDirection: 'row',
+  },
+  gradientName: {
+    fontWeight: 'bold',
+  },
+  h1: {
+    fontSize: 30,
+  },
+  white: {
+    color: '#fff',
+  },
+  header: {
+    paddingVertical: 20,
+    alignItems: 'center',
   },
 });
